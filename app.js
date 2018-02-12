@@ -31,42 +31,34 @@ var wineglass = new Pic('Wineglass', 'img/wine-glass.jpg', 0, 0);
 
 var imgEl = document.getElementById('rando-pic');
 
-imgEl.addEventListener('click', randomPic);
+imgEl.addEventListener('click', allRandomPics);
 
-
-function randomPic() {
-    var randomIndex = Math.floor(Math.random() * allPics.length);
-    imgEl.src = allPics[randomIndex].picsPath;
-}
-randomPic();
 
 var imgElTwo = document.getElementById('rando-pic2');
 
-imgElTwo.addEventListener('click', randomPicTwo);
+imgElTwo.addEventListener('click', allRandomPics);
 
-function randomPicTwo() {
-    var randomIndex = Math.floor(Math.random() * allPics.length);
-    imgElTwo.src = allPics[randomIndex].picsPath;
-
-}
-randomPicTwo();
 
 var imgElThree = document.getElementById('rando-pic3');
 
-imgElThree.addEventListener('click', randomPicThree);
+imgElThree.addEventListener('click', allRandomPics);
 
-function randomPicThree() {
-    var randomIndex = Math.floor(Math.random() * allPics.length);
-    imgElThree.src = allPics[randomIndex].picsPath;
+function randomIndex() {
+    var randomListPic = Math.floor(Math.random() * allPics.length);
+    return randomListPic
+    
+}
+
+
+function allRandomPics() {
+    imgElThree.src = allPics[randomIndex()].picsPath;
+    imgElTwo.src = allPics[randomIndex()].picsPath;
+    imgEl.src = allPics[randomIndex()].picsPath;
 
 }
-randomPicThree();
+allRandomPics();
 
-function changeAllPics() {
-    randomPic();
-    randomPicTwo();
-    randomPicThree();
-}
+
 
 //do i need another picpath for the other two pictures?
 //put everything into a bigger function
