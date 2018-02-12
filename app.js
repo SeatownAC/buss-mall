@@ -1,13 +1,13 @@
 'use strict';
 //array to store the objects
-Pic.allPics = [];
+var allPics = [];
 
 function Pic(name, picsPath) {
     this.name = name;
     this.picsPath = picsPath;
     this.vote = 0;
     this.totalVotes = 0;
-    Pic.allPics.push(this);
+    allPics.push(this);
 }
 
 
@@ -35,29 +35,38 @@ imgEl.addEventListener('click', randomPic);
 
 
 function randomPic() {
-    var randomIndex = Math.floor(Math.random() * Pic.allPics.length);
-    imgEl.src = Pic.allPics[randomIndex].picsPath;
+    var randomIndex = Math.floor(Math.random() * allPics.length);
+    imgEl.src = allPics[randomIndex].picsPath;
 }
 randomPic();
 
-var imgEl = document.getElementById('rando-pic2');
+var imgElTwo = document.getElementById('rando-pic2');
 
-imgEl.addEventListener('click', randomPicTwo);
+imgElTwo.addEventListener('click', randomPicTwo);
 
 function randomPicTwo() {
-    var randomIndex = Math.floor(Math.random() * Pic.allPics.length);
-    imgEl.src = Pic.allPics[randomIndex].picsPath;
+    var randomIndex = Math.floor(Math.random() * allPics.length);
+    imgElTwo.src = allPics[randomIndex].picsPath;
 
 }
 randomPicTwo();
 
-var imgEl = document.getElementById('rando-pic3');
+var imgElThree = document.getElementById('rando-pic3');
 
-imgEl.addEventListener('click', randomPicThree);
+imgElThree.addEventListener('click', randomPicThree);
 
 function randomPicThree() {
-    var randomIndex = Math.floor(Math.random() * Pic.allPics.length);
-    imgEl.src = Pic.allPics[randomIndex].picsPath;
+    var randomIndex = Math.floor(Math.random() * allPics.length);
+    imgElThree.src = allPics[randomIndex].picsPath;
 
 }
 randomPicThree();
+
+function changeAllPics() {
+    randomPic();
+    randomPicTwo();
+    randomPicThree();
+}
+
+//do i need another picpath for the other two pictures?
+//put everything into a bigger function
