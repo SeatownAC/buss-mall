@@ -54,7 +54,11 @@ function allRandomPics() {
     imgElThree.src = allPics[randomIndex()].picsPath;
     imgElTwo.src = allPics[randomIndex()].picsPath;
     imgEl.src = allPics[randomIndex()].picsPath;
-
+    while(imgEl.src === imgElTwo.src || imgElTwo.src === imgElThree.src || imgEl.src === imgElThree.src) {
+        imgElThree.src = allPics[randomIndex()].picsPath;
+        imgElTwo.src = allPics[randomIndex()].picsPath;
+        imgEl.src = allPics[randomIndex()].picsPath;
+    }
 }
 allRandomPics();
 
