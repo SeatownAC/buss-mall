@@ -1,6 +1,7 @@
 'use strict';
 //array to store the objects
 var allPics = [];
+var totalClicks = 0;
 
 function Pic(name, picsPath) {
     this.name = name;
@@ -12,9 +13,6 @@ function Pic(name, picsPath) {
     this.lastView = [];
     allPics.push(this);
 }
-
-
-
 
 var bag = new Pic('Bag','img/bag.jpg', 0, 0);
 var banana = new Pic('Banana', 'img/banana.jpg', 0, 0);
@@ -63,43 +61,20 @@ function allRandomPics() {
         imgElThree.src = allPics[randomIndex()].picsPath;
         imgElTwo.src = allPics[randomIndex()].picsPath;
         imgEl.src = allPics[randomIndex()].picsPath;
+     }
+
+     totalClicks = totalClicks + 1
+     if(totalClicks > 24) {
+        imgEl.removeEventListener('click', allRandomPics);
+        imgElTwo.removeEventListener('click', allRandomPics);
+        imgElThree.removeEventListener('click', allRandomPics);
+        //showTally();
     }
+
+
 }
 
 
 allRandomPics();
 
-// function handleClick(event) {
-//     console.log(Pics.totalVotes, 'total clicks');
-//     if(Pics.totalVotes > 24) {
-//         Pics.container.removeEventListener('click', handleClick);
-//         showTally();
-//     }
-//     if (event.target.id === 'image_container') {
-//         return alert('Nope, you need to click on an image.');
-//     }
-//     Product.totalClicks += 1;
-//     for( var i = 0; i < Product.names.length; i++) {
-//         if(event.target.id === Product.all[i].name) {
-//             Product.all[i].votes += 1;
-//             console.log(event.target.id + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views + ' views.');
-//         }
-//     }
 
-//     function showTally() {
-//         for(var i = 0; i < Product.all.length; i++) {
-//             var liEl = document.createElement('li');
-//             liEl.textContent = Product.all[i].name + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views + ' views.';
-//             Product.tally.appendChild(liEl);
-//         }
-//     }
-    displayPics();
-
-
-
-
-
-
-//do i need another picpath for the other two pictures?
-//put everything into a bigger function
-//look into wrapping in a set function?
