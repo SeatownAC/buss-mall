@@ -6,11 +6,7 @@ var totalClicks = 0;
 function Pic(name, picsPath) {
     this.name = name;
     this.picsPath = picsPath;
-    this.views = 0;
-    this.vote = 0;
-    this.totalVotes = 0;
-    this.currentView = [];
-    this.lastView = [];
+    this.votes = 0;
     allPics.push(this);
 }
 
@@ -53,15 +49,31 @@ function randomIndex() {
 }
 
 
-function allRandomPics() {
-    imgElThree.src = allPics[randomIndex()].picsPath;
-    imgElTwo.src = allPics[randomIndex()].picsPath;
-    imgEl.src = allPics[randomIndex()].picsPath;
+
+function loadThreePics() {
+    var picNumber = randomIndex();
+    var picNumberTwo = randomIndex();
+    var picNumberThree = randomIndex();
+    imgElThree.src = allPics[picNumber].picsPath;
+    imgElThree.name = allPics[picNumber].name;
+    imgElTwo.src = allPics[picNumberTwo].picsPath;
+    imgElTwo.name = allPics[picNumberTwo].name;
+    imgEl.src = allPics[picNumberThree].picsPath;
+    imgEl.name = allPics[picNumberThree].name;
     while(imgEl.src === imgElTwo.src || imgElTwo.src === imgElThree.src || imgEl.src === imgElThree.src) {
         imgElThree.src = allPics[randomIndex()].picsPath;
         imgElTwo.src = allPics[randomIndex()].picsPath;
         imgEl.src = allPics[randomIndex()].picsPath;
      }
+}
+
+
+function allRandomPics(event) {
+    var name = event.target.name;
+    var pic = eval(name.toLowerCase());
+    pic.votes = pic.votes + 1;
+    console.log(eval(name.toLowerCase()));
+    loadThreePics();
 
      totalClicks = totalClicks + 1
      if(totalClicks > 24) {
@@ -75,6 +87,6 @@ function allRandomPics() {
 }
 
 
-allRandomPics();
+loadThreePics();
 
 
