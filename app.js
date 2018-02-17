@@ -7,6 +7,8 @@ function Pic(name, picsPath) {
     this.name = name;
     this.picsPath = picsPath;
     this.votes = 0;
+    this.views = 0;
+
     allPics.push(this);
 }
 
@@ -26,6 +28,8 @@ var unicorn = new Pic('Unicorn', 'img/unicorn.jpg', 0, 0);
 var usb = new Pic('Usb', 'img/usb.gif', 0, 0);
 var watercan = new Pic('Watercan', 'img/water-can.jpg', 0, 0);
 var wineglass = new Pic('Wineglass', 'img/wine-glass.jpg', 0, 0);
+
+Pic.tally = document.getElementById('count');
 
 
 var imgEl = document.getElementById('rando-pic');
@@ -75,14 +79,24 @@ function allRandomPics(event) {
     console.log(eval(name.toLowerCase()));
     loadThreePics();
 
+    // function showTally() {
+    //     console.log(showTally);
+    //     for(var i = 0; i < allPics.length; i++) {
+    //         var liEl = document.createElement('li');
+    //         liEl.textContent = allPics[i].name + ' has ' + allPics[i].votes + ' votes in ' + allPics[i].views + ' views.';
+    //         Pic.tally.appendChild(liEl);
+    //     }
+    // }
+
+
      totalClicks = totalClicks + 1
      if(totalClicks > 24) {
         imgEl.removeEventListener('click', allRandomPics);
         imgElTwo.removeEventListener('click', allRandomPics);
         imgElThree.removeEventListener('click', allRandomPics);
-        //showTally();
+        
     }
-
+    generateChart();
 
 }
 
@@ -90,3 +104,38 @@ function allRandomPics(event) {
 loadThreePics();
 
 
+function generateChart() {
+    var chartNames = [];
+    var chartVotes = [];
+    for (var j = 0; j < allPics.length; j++) {
+    chartNames[j] = allPics[j].name;
+    chartVotes[j] = allPics[j].votes;
+
+    }
+    var labelColors = ['yellow', 'green', 'yellow', 'green', 'yellow', 'green', 'yellow', 'green', 'yellow', 'green', 'yellow', 'green','yellow', 'green','yellow', 'green','yellow'];
+
+    var ctx = document.getElementById('chart').getContext('2d');
+   
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: chartNames,
+        datasets: [{
+          label: '# of Votes',
+          data: chartVotes,
+          backgroundColor: labelColors
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks:  {
+              beginAtZero: true,
+              stepSize: 1,
+              max: 10,
+            }
+          }]
+        }
+      }
+    });
+   }
