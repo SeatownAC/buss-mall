@@ -42,4 +42,10 @@ image_container {
     display: inline-block;
     margin: 25px auto;
 }
+button {
+    width: 150px;
+    height: 50px;
+    background-color: lightblue;
+    
+}
 

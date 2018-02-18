@@ -105,6 +105,8 @@ loadThreePics();
 
 
 function generateChart() {
+    var strItems = JSON.stringify(allPics);
+    localStorage.setItem('items', strItems);
     var chartNames = [];
     var chartVotes = [];
     for (var j = 0; j < allPics.length; j++) {
@@ -112,7 +114,7 @@ function generateChart() {
     chartVotes[j] = allPics[j].votes;
 
     }
-    var labelColors = ['yellow', 'green', 'yellow', 'green', 'yellow', 'green', 'yellow', 'green', 'yellow', 'green', 'yellow', 'green','yellow', 'green','yellow', 'green','yellow'];
+    var labelColors = ['yellow', 'green', 'orange', 'green', 'yellow', 'orange', 'yellow', 'green', 'orange', 'green', 'yellow', 'orange','yellow', 'green','orange', 'green','yellow'];
 
     var ctx = document.getElementById('chart').getContext('2d');
    
@@ -131,11 +133,60 @@ function generateChart() {
           yAxes: [{
             ticks:  {
               beginAtZero: true,
-              stepSize: 1,
-              max: 10,
+              stepSize: 2,
+              max: 8,
             }
           }]
         }
       }
     });
    }
+   var clearLS = document.getElementById('clearStorage');
+
+   clearLS.addEventListener('click', function() {
+       console.log('click it!');
+       localStorage.clear();
+   });
+   
+
+
+
+//encoding/setting in database
+//    JSON.stringify();
+//    localStorage.setItem();
+//retrieve from database, turn back into JS
+//    localStorage.getItem();
+//    JSON.parse();
+
+   //stringify all the things!
+//localStorage.setItem()
+//add all the things/changes to local storage
+//what are the things we want to collect in Bus Mall? votes, names, clicks 
+//our stuff in local storage will be in JSON and not only JSON but stringigied JSON
+
+// var localSave = {
+//     name: 'Tyler',
+//     instructor: false,
+//     favoriteNumber: 6,
+//     laughs: function() {
+//         alert('hahahahahaHAHAHAHAHAHA');
+//     }
+// };
+
+// var rachelArray = ['Rachel', 37, true, 'no-dog'];
+
+// var anotherArray = ['random', 9, false, tyler, rachelArray];
+
+// var clearLS = document.getElementById('clearStorage');
+
+// clearLS.addEventListener('click', function() {
+//     console.log('click it!');
+//     localStorage.clear();
+// });
+
+// //localStorage.getItem();
+
+// var retrived = localStorage.getItem('awesome');
+
+// //unstringify technically called parse
+// var parse = JSON.parse(retrieved);
