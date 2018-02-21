@@ -1,83 +1,53 @@
-Product.names = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+'use strict';
 
-Product.all = [];
-Product.container = document.getElementById('image_container');
-Product.justViewed = [];
-Product.pics = [document.getElementById('left'), document.getElementById('center'), document.getElementById('right')];
-Product.tally = document.getElementById('tally');
-Product.totalClicks = 0;
+//create global variables
+var btn = document.getElementById('btn');
+var input = document.getElementById('item');
+var tasks = document.getElementById('tasks');
 
-function Product(name) {
-    this.name = name;
-    this.path = 'img/' + name + '.jpg';
-    this.votes = 0;
-    this.views = 0;
-    Product.all.push(this);
+//conditional that asks is there a property currently on local storage that is a list? Does it have a value equal to ''?
+//split will coerce it back inot an array and get rid of the comma
+//else we will take out the comma and set up an empty array that we can fill
+
+if(localStorage.list) {
+    var list = localStorage.list.split(',');
+
+} else {
+    var list = [];
 }
-for(var i = 0; i < Product.names.length; i++) {
-    new Product(Product.names[i]);
+
+//save the state of our application
+//attach it to some sort of event listener...click advised
+//grab our list and push the value of what we type in to local storage
+//every time you add an item your item will go to local storage
+
+function save() {
+    list.push(input.value);
+    localStorage.list = list;
+    //meta data so you can see what is happening in action
+    console.log('list arr:', list);
+    console.log('localSorage list:', localStorage.list);
 }
- function makeRandom() {
-     return Math.floor(Math.random() * Product.names.length);
- }
 
-function displayPics() {
-    var currentlyShowing = [];
-    //make left image unique
-    currentlyShowing[0] = makeRandom();
-    while (Product.justViewed.indexOf(currentlyShowing[0]) !== -1) {
-        console.error('Duplicate, or in prior view! Re run!');
-        currentlyShowing[0] = makeRandom();
-    }
-    //make center image unique
-    currentlyShowing[1] = makeRandom();
-    while(currentlyShowing[0] === currentlyShowing[1] || Product.justViewed.indexOf(currentlyShowing[1]) !== -1) {
-    console.error('Duplicate at center, or in prior view! Re run!');
-    currentlyShowing[1] = makeRandom();
-    }
-    //make right image unique
-    currentlyShowing[2] = makeRandom();
-    while(currentlyShowing[0] === currentlyShowing[2] || currentlyShowing[1] === currentlyShowing[2] || Product.justViewed.indexOf(currentlyShowing[2]) !== -1) {
-        console.error('Duplicate at right! Re run it.');
-        currentlyShowing[2] = makeRandom();
-    }
+//make naming conventions easy to read, name your functions after what they are doing
 
-    //take it to the DOM
-    for(var i = 0; i < 3; i++) {
-        Product.pics[i].src = Product.all[currentlyShowing[i]].path;
-        Product.pics[i].id = Product.all[currentlyShowing[i]].name;
-        Product.all[currentlyShowing[i]].views += 1;
-        Product.justViewed[i] = currentlyShowing[i];
-    }
+function create() {
+    var val = input.value;
+    //creating the item so getting the value of the input 
+    var item = document.createElement('li');
+    //each individual list item
+    //do what to the list? Put stuff in it that is coming through the val
+    //in the past we've used inner html or text content...this is NEW
+    //.createTextNode will solve problems in the future
+    ////just appending child text specifically to just an element in memory.
+    //Putting nothing but text on the Node.
 }
-    //handle click events
 
-    function handleClick(event) {
-        console.log(Product.totalClicks, 'total clicks');
-        if(Product.totalClicks > 24) {
-            Product.container.removeEventListener('click', handleClick);
-            showTally();
-        }
-        if (event.target.id === 'image_container') {
-            return alert('Nope, you need to click on an image.');
-        }
-        Product.totalClicks += 1;
-        for( var i = 0; i < Product.names.length; i++) {
-            if(event.target.id === Product.all[i].name) {
-                Product.all[i].votes += 1;
-                console.log(event.target.id + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views + ' views.');
-            }
-        }
-        displayPics();
-    }
-        //show tally using the list in the DOM
-        function showTally() {
-            for(var i = 0; i < Product.all.length; i++) {
-                var liEl = document.createElement('li');
-                liEl.textContent = Product.all[i].name + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views + ' views.';
-                Product.tally.appendChild(liEl);
-            }
-        }
-        //event listener
-        Product.container.addEventListener('click', handleClick);
-        displayPics();
+
+item.appendChild(document.createTextNode(val));
+//need to take our tasks which is our ul and append child with the added li we just created
+tasks.appendChild(item);
+//each time you press enter you get a new empty value to enter a new val
+input.value = '';
+
+}
